@@ -1,26 +1,158 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Website</title>
+    <title>Nature & Weather Blog</title>
+
     <style>
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
-            background-color: #f4f4f9;
-        }
-        p {
-            font-size: 24px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f0;
             color: #333;
         }
+
+        /* Website Header */
+        header {
+            background-color: #234d32;
+            color: white;
+            text-align: center;
+            padding: 35px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 38px;
+        }
+
+        header p {
+            margin-bottom: 0;
+            font-size: 16px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #376b47;
+            text-align: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #376b47;
+            color: white;
+            padding: 16px 25px;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropbtn:hover {
+            background-color: #234d32;
+        }
+
+        /* Dropdown Content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            text-align: left;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 14px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #e4eee2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main h2 {
+            color: #234d32;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #234d32;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            margin-top: 60px;
+        }
+
     </style>
 </head>
+
 <body>
-    <p>this is a website that i created and its a test</p>
+
+    <header>
+        <h1>Nature & Weather Blog</h1>
+        <p>Weather, Wildlife, Plants, and Other News</p>
+    </header>
+
+    <nav>
+        <div class="dropdown">
+            <button class="dropbtn">Menu ▼</button>
+
+            <div class="dropdown-content">
+                <a href="#weather">Weather Outlook</a>
+                <a href="#pictures">Fauna & Flora Pictures</a>
+                <a href="#news">Other News</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <h2>Welcome to My Blog!</h2>
+
+        <p>
+            Welcome to my blog, where you can explore weather
+            forecasts, fascinating wildlife, beautiful plants,
+            and interesting news from around the world.
+        </p>
+
+        <section id="weather">
+            <h2>Weather Outlook</h2>
+            <p>Updates and forecasts about weather conditions.</p>
+        </section>
+
+        <section id="pictures">
+            <h2>Fauna & Flora Pictures</h2>
+            <p>A collection of interesting animals and plants.</p>
+        </section>
+
+        <section id="news">
+            <h2>Other News</h2>
+            <p>Other interesting stories and updates.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Nature & Weather Blog</p>
+    </footer>
+
 </body>
 </html>
