@@ -1,0 +1,524 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fauna & Flora Pictures</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f0;
+            color: #333;
+        }
+
+        /* Website Header */
+        header {
+            background-color: #234d32;
+            color: white;
+            text-align: center;
+            padding: 35px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 38px;
+        }
+
+        header p {
+            margin-bottom: 0;
+            font-size: 16px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #376b47;
+            text-align: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #376b47;
+            color: white;
+            padding: 16px 25px;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropbtn:hover {
+            background-color: #234d32;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            z-index: 10;
+            text-align: left;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 14px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #e4eee2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        main > h2 {
+            text-align: center;
+            color: #234d32;
+        }
+
+        main > p {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            background-color: white;
+            border: 3px solid #376b47;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 25px auto;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            max-width: 950px;
+            box-shadow: 0px 3px 8px rgba(0,0,0,0.08);
+        }
+
+        /* Slideshow Side */
+        .slideshow {
+            width: 60%;
+            flex-shrink: 0;
+            position: relative;
+            background-color: #234d32;
+            border: 3px solid #234d32;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 330px;
+            object-fit: contain;
+            background-color: #234d32;
+            display: block;
+        }
+
+        /* Arrows */
+        .prev, .next {
+            position: absolute;
+            top: 43%;
+            cursor: pointer;
+            padding: 10px 14px;
+            background-color: rgba(0,0,0,0.45);
+            color: white;
+            border: none;
+            font-size: 23px;
+            border-radius: 5px;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        /* White Indicator Dots */
+        .dots {
+            text-align: center;
+            padding: 12px 5px;
+            background-color: #234d32;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid white;
+            border-radius: 50%;
+            margin: 0 4px;
+            cursor: pointer;
+            background-color: transparent;
+        }
+
+        .dot.active {
+            background-color: white;
+        }
+
+        .dot:hover {
+            background-color: white;
+        }
+
+        /* Description Side */
+        .description {
+            width: 40%;
+            padding: 10px;
+        }
+
+        .description h3 {
+            color: #234d32;
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        .description p {
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #234d32;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            margin-top: 60px;
+        }
+
+        /* Mobile Layout */
+        @media (max-width: 700px) {
+
+            main {
+                padding: 10px;
+            }
+
+            .gallery-section {
+                flex-direction: column;
+                gap: 15px;
+                padding: 12px;
+            }
+
+            .slideshow {
+                width: 100%;
+            }
+
+            .slide img {
+                height: 270px;
+            }
+
+            .description {
+                width: 100%;
+                padding: 5px;
+            }
+
+            .description h3 {
+                text-align: center;
+            }
+
+            header h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Nature & Weather Blog</h1>
+        <p>Weather, Wildlife, Plants, and Other News</p>
+    </header>
+
+    <nav>
+        <div class="dropdown">
+            <button class="dropbtn">Menu ▼</button>
+
+            <div class="dropdown-content">
+                <a href="index.html">Home</a>
+                <a href="weather.html">Weather Outlook</a>
+                <a href="pictures.html">Fauna & Flora Pictures</a>
+                <a href="news.html">Other News</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+
+        <h2>Fauna & Flora Pictures</h2>
+
+        <p>
+            A collection of photographs showcasing the beauty
+            of wildlife, plants, and the natural world.
+        </p>
+
+        <!-- Gallery sections are generated below -->
+
+        <div id="gallery-container"></div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Nature & Weather Blog</p>
+    </footer>
+
+    <script>
+
+        /* ==========================================
+           GALLERY SETUP
+
+           Change image filenames and descriptions here.
+           Each gallery contains exactly 5 images.
+           ========================================== */
+
+        const galleries = [
+
+            {
+                title: "Gallery 1",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae sem at neque consequat aliquam. Sed ornare, ligula vel suscipit malesuada, neque ipsum feugiat erat, vitae commodo magna lorem sed ipsum.",
+                images: [
+                    "images/gallery1-1.jpg",
+                    "images/gallery1-2.jpg",
+                    "images/gallery1-3.jpg",
+                    "images/gallery1-4.jpg",
+                    "images/gallery1-5.jpg"
+                ]
+            },
+
+            {
+                title: "Gallery 2",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae sem at neque consequat aliquam. Sed ornare, ligula vel suscipit malesuada, neque ipsum feugiat erat, vitae commodo magna lorem sed ipsum.",
+                images: [
+                    "images/gallery2-1.jpg",
+                    "images/gallery2-2.jpg",
+                    "images/gallery2-3.jpg",
+                    "images/gallery2-4.jpg",
+                    "images/gallery2-5.jpg"
+                ]
+            },
+
+            {
+                title: "Gallery 3",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae sem at neque consequat aliquam. Sed ornare, ligula vel suscipit malesuada, neque ipsum feugiat erat, vitae commodo magna lorem sed ipsum.",
+                images: [
+                    "images/gallery3-1.jpg",
+                    "images/gallery3-2.jpg",
+                    "images/gallery3-3.jpg",
+                    "images/gallery3-4.jpg",
+                    "images/gallery3-5.jpg"
+                ]
+            },
+
+            {
+                title: "Gallery 4",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae sem at neque consequat aliquam. Sed ornare, ligula vel suscipit malesuada, neque ipsum feugiat erat, vitae commodo magna lorem sed ipsum.",
+                images: [
+                    "images/gallery4-1.jpg",
+                    "images/gallery4-2.jpg",
+                    "images/gallery4-3.jpg",
+                    "images/gallery4-4.jpg",
+                    "images/gallery4-5.jpg"
+                ]
+            },
+
+            {
+                title: "Gallery 5",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vitae sem at neque consequat aliquam. Sed ornare, ligula vel suscipit malesuada, neque ipsum feugiat erat, vitae commodo magna lorem sed ipsum.",
+                images: [
+                    "images/gallery5-1.jpg",
+                    "images/gallery5-2.jpg",
+                    "images/gallery5-3.jpg",
+                    "images/gallery5-4.jpg",
+                    "images/gallery5-5.jpg"
+                ]
+            }
+
+        ];
+
+        /* ==========================================
+           CREATE THE GALLERIES
+           ========================================== */
+
+        const container = document.getElementById("gallery-container");
+
+        galleries.forEach((gallery, galleryIndex) => {
+
+            const section = document.createElement("section");
+            section.className = "gallery-section";
+
+            let slidesHTML = "";
+            let dotsHTML = "";
+
+            gallery.images.forEach((image, imageIndex) => {
+
+                slidesHTML += `
+                    <div class="slide ${imageIndex === 0 ? "active" : ""}">
+                        <img src="${image}"
+                             alt="${gallery.title} picture ${imageIndex + 1}">
+                    </div>
+                `;
+
+                dotsHTML += `
+                    <span class="dot ${imageIndex === 0 ? "active" : ""}"
+                          data-slide="${imageIndex}">
+                    </span>
+                `;
+            });
+
+            section.innerHTML = `
+                <div class="slideshow">
+
+                    ${slidesHTML}
+
+                    <button class="prev"
+                            aria-label="Previous image">&#10094;</button>
+
+                    <button class="next"
+                            aria-label="Next image">&#10095;</button>
+
+                    <div class="dots">
+                        ${dotsHTML}
+                    </div>
+
+                </div>
+
+                <div class="description">
+                    <h3>${gallery.title}</h3>
+                    <p>${gallery.description}</p>
+                </div>
+            `;
+
+            container.appendChild(section);
+
+            /* ==========================================
+               SLIDESHOW CONTROLS
+               ========================================== */
+
+            const slides = section.querySelectorAll(".slide");
+            const dots = section.querySelectorAll(".dot");
+
+            let currentSlide = 0;
+            let timer;
+
+            function showSlide(index) {
+
+                currentSlide = index;
+
+                if (currentSlide >= slides.length) {
+                    currentSlide = 0;
+                }
+
+                if (currentSlide < 0) {
+                    currentSlide = slides.length - 1;
+                }
+
+                slides.forEach(slide => {
+                    slide.classList.remove("active");
+                });
+
+                dots.forEach(dot => {
+                    dot.classList.remove("active");
+                });
+
+                slides[currentSlide].classList.add("active");
+                dots[currentSlide].classList.add("active");
+
+                resetTimer();
+            }
+
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+
+            function previousSlide() {
+                showSlide(currentSlide - 1);
+            }
+
+            function startTimer() {
+                timer = setInterval(nextSlide, 5000);
+            }
+
+            function resetTimer() {
+                clearInterval(timer);
+                startTimer();
+            }
+
+            section.querySelector(".next").addEventListener("click", nextSlide);
+            section.querySelector(".prev").addEventListener("click", previousSlide);
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener("click", () => {
+                    showSlide(index);
+                });
+            });
+
+            startTimer();
+
+            /* ==========================================
+               MOBILE SWIPE SUPPORT
+               ========================================== */
+
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            const slideshow = section.querySelector(".slideshow");
+
+            slideshow.addEventListener("touchstart", event => {
+                touchStartX = event.changedTouches[0].screenX;
+            });
+
+            slideshow.addEventListener("touchend", event => {
+                touchEndX = event.changedTouches[0].screenX;
+
+                const distance = touchEndX - touchStartX;
+
+                if (distance < -50) {
+                    nextSlide();
+                }
+
+                if (distance > 50) {
+                    previousSlide();
+                }
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
