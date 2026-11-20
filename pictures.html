@@ -255,6 +255,52 @@
                 font-size: 30px;
             }
         }
+        .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-container input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.search-container button {
+    padding: 8px 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #234d32;
+    color: white;
+}
+
+#searchResults {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    width: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+#searchResults a {
+    display: block;
+    padding: 10px;
+    color: #234d32;
+    text-decoration: none;
+}
+
+#searchResults a:hover {
+    background-color: #f0f0f0;
+}
     </style>
 </head>
 
@@ -276,6 +322,15 @@
                 <a href="news.html">Other News</a>
             </div>
         </div>
+        <div class="search-container">
+    <input type="text" id="searchInput"
+           placeholder="Search website..."
+           autocomplete="off">
+
+    <button type="button" onclick="searchWebsite()">🔍</button>
+
+    <div id="searchResults"></div>
+</div>
     </nav>
 
     <main>
@@ -586,6 +641,74 @@ function highlightSearchTerm() {
 }
 
 window.addEventListener("load", highlightSearchTerm);
+</script>
+    <script>
+const websitePages = [
+    { title: "Home", url: "index.html" },
+    { title: "Weather Outlook", url: "weather.html" },
+    { title: "Fauna & Flora Pictures", url: "pictures.html" },
+    { title: "Other News", url: "news.html" }
+];
+
+async function searchWebsite() {
+    const input = document.getElementById("searchInput");
+    const results = document.getElementById("searchResults");
+    const query = input.value.trim();
+
+    results.innerHTML = "";
+    results.style.display = "block";
+
+    if (!query) {
+        results.innerHTML = "<p>Please enter a search term.</p>";
+        return;
+    }
+
+    let foundResults = [];
+
+    for (const page of websitePages) {
+        try {
+            const response = await fetch(page.url);
+            const html = await response.text();
+
+            const doc = new DOMParser().parseFromString(html, "text/html");
+            const text = doc.body.innerText.toLowerCase();
+
+            if (text.includes(query.toLowerCase())) {
+                foundResults.push(page);
+            }
+        } catch (error) {
+            console.error("Error searching:", page.url, error);
+        }
+    }
+
+    if (foundResults.length === 0) {
+        results.innerHTML = "<p>No results found.</p>";
+        return;
+    }
+
+    foundResults.forEach(page => {
+        const link = document.createElement("a");
+
+        link.href = page.url + "?search=" + encodeURIComponent(query);
+        link.textContent = page.title;
+
+        results.appendChild(link);
+    });
+}
+
+document.getElementById("searchInput").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        searchWebsite();
+    }
+});
+
+document.addEventListener("click", function(event) {
+    const container = document.querySelector(".search-container");
+
+    if (container && !container.contains(event.target)) {
+        document.getElementById("searchResults").style.display = "none";
+    }
+});
 </script>
 </body>
 </html>
