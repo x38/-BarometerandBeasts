@@ -195,6 +195,18 @@
 
 <body>
 
+<div class="search-container">
+
+    <input type="text" id="searchInput"
+           placeholder="Search website..."
+           autocomplete="off">
+
+    <button type="button" onclick="searchWebsite()">🔍</button>
+
+    <div id="searchResults"></div>
+
+</div>
+    
     <header>
         <h1>Nature & Weather Blog</h1>
         <p>Weather, Wildlife, Plants, and Other News</p>
@@ -252,9 +264,12 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 Nature & Weather Blog</p>
-    </footer>
+   
+<footer>
+    <p>&copy; 2026 Nature & Weather Blog</p>
+</footer>
+
+<script>
 
 const websitePages = [
     {
@@ -332,11 +347,14 @@ document.addEventListener("click", function(event) {
 
     const searchContainer = document.querySelector(".search-container");
 
-    if (!searchContainer.contains(event.target)) {
+    if (searchContainer && !searchContainer.contains(event.target)) {
         document.getElementById("searchResults").style.display = "none";
     }
 
 });
 
+</script>
+
 </body>
 </html>
+
