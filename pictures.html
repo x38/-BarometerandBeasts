@@ -37,54 +37,64 @@
             font-size: 16px;
         }
 
-        /* Navigation Bar */
-        nav {
-            background-color: #376b47;
-            text-align: center;
-        }
+/* Navigation Bar */
+nav {
+    background-color: #376b47;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-        .dropbtn {
-            background-color: #376b47;
-            color: white;
-            padding: 16px 25px;
-            font-size: 17px;
-            border: none;
-            cursor: pointer;
-        }
+.dropbtn {
+    background-color: #376b47;
+    color: white;
+    padding: 16px 25px;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
 
-        .dropbtn:hover {
-            background-color: #234d32;
-        }
+.dropbtn:hover {
+    background-color: #234d32;
+}
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 220px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            z-index: 10;
-            text-align: left;
-        }
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 220px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 10;
+    text-align: left;
+}
 
-        .dropdown-content a {
-            color: #333;
-            padding: 14px 16px;
-            text-decoration: none;
-            display: block;
-        }
+.dropdown-content a {
+    color: #333;
+    padding: 14px 16px;
+    text-decoration: none;
+    display: block;
+}
 
-        .dropdown-content a:hover {
-            background-color: #e4eee2;
-        }
+.dropdown-content a:hover {
+    background-color: #e4eee2;
+}
 
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Search bar positioning */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
 
         /* Main Content */
         main {
@@ -358,7 +368,7 @@
            GALLERY SETUP
 
            Change image filenames and descriptions here.
-           Each gallery contains exactly 5 images.
+           Each gallery contains exactly 5 images
            ========================================== */
 
         const galleries = [
