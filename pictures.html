@@ -517,6 +517,75 @@
         });
 
     </script>
+<script>
+function highlightSearchTerm() {
+    const params = new URLSearchParams(window.location.search);
+    const searchTerm = params.get("search");
 
+    if (!searchTerm) return;
+
+    const walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT
+    );
+
+    const textNodes = [];
+
+    while (walker.nextNode()) {
+        const node = walker.currentNode;
+
+        if (
+            node.parentElement.closest("script, style, input, button, nav, footer")
+        ) {
+            continue;
+        }
+
+        if (node.textContent.toLowerCase().includes(searchTerm.toLowerCase())) {
+            textNodes.push(node);
+        }
+    }
+
+    textNodes.forEach(node => {
+        const text = node.textContent;
+        const regex = new RegExp(
+            searchTerm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+            "gi"
+        );
+
+        const fragment = document.createDocumentFragment();
+        let lastIndex = 0;
+        let match;
+
+        while ((match = regex.exec(text)) !== null) {
+            fragment.appendChild(
+                document.createTextNode(text.substring(lastIndex, match.index))
+            );
+
+            const mark = document.createElement("mark");
+            mark.textContent = match[0];
+            mark.style.backgroundColor = "yellow";
+            mark.style.color = "black";
+            mark.style.padding = "2px";
+
+            fragment.appendChild(mark);
+            lastIndex = regex.lastIndex;
+        }
+
+        fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+        node.parentNode.replaceChild(fragment, node);
+    });
+
+    const firstMatch = document.querySelector("mark");
+
+    if (firstMatch) {
+        firstMatch.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    }
+}
+
+window.addEventListener("load", highlightSearchTerm);
+</script>
 </body>
 </html>
