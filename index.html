@@ -195,15 +195,7 @@
 
 <body>
 
-<div class="search-container">
 
-    <input type="text" id="searchInput"
-           placeholder="Search website..."
-           autocomplete="off">
-
-    <button type="button" onclick="searchWebsite()">🔍</button>
-
-    <div id="searchResults"></div>
 
 </div>
     
@@ -226,12 +218,13 @@
         </div>
     </div>
 
-    <div class="search-container">
-        <input type="text" id="searchInput"
-               placeholder="Search website..."
-               autocomplete="off">
+<div class="search-container">
 
-        <button onclick="searchWebsite()">🔍</button>
+    <input type="text" id="searchInput"
+           placeholder="Search website..."
+           autocomplete="off">
+
+    <button type="button" onclick="searchWebsite()">🔍</button>
 
         <div id="searchResults"></div>
     </div>
@@ -270,50 +263,49 @@
 </footer>
 
 <script>
-
 const websitePages = [
-    {
-        title: "Home",
-        url: "index.html",
-        keywords: "home welcome nature weather wildlife plants blog"
-    },
-    {
-        title: "Weather Outlook",
-        url: "weather.html",
-        keywords: "weather forecast temperature storms snow rain sunshine climate meteorology"
-    },
-    {
-        title: "Fauna & Flora Pictures",
-        url: "pictures.html",
-        keywords: "birds animals wildlife trees flowers plants photographs pictures nature"
-    },
-    {
-        title: "Other News",
-        url: "news.html",
-        keywords: "news stories updates environment science nature"
-    }
+    { title: "Home", url: "index.html" },
+    { title: "Weather Outlook", url: "weather.html" },
+    { title: "Fauna & Flora Pictures", url: "pictures.html" },
+    { title: "Other News", url: "news.html" }
 ];
 
-function searchWebsite() {
-
+async function searchWebsite() {
     const input = document.getElementById("searchInput");
     const results = document.getElementById("searchResults");
-
-    const query = input.value.toLowerCase().trim();
+    const query = input.value.trim().toLowerCase();
 
     results.innerHTML = "";
     results.style.display = "block";
 
-    if (query === "") {
-        results.innerHTML = "<p>Please enter something to search.</p>";
+    if (!query) {
+        results.innerHTML = "<p>Please enter a search term.</p>";
         return;
     }
 
-    const matches = websitePages.filter(page =>
-        (page.title + " " + page.keywords)
-            .toLowerCase()
-            .includes(query)
-    );
+    results.innerHTML = "<p>Searching...</p>";
+
+    const matches = [];
+
+    for (const page of websitePages) {
+        try {
+            const response = await fetch(page.url);
+            const html = await response.text();
+
+            const parser = new DOMParser();
+            const documentPage = parser.parseFromString(html, "text/html");
+
+            const pageText = documentPage.body.innerText.toLowerCase();
+
+            if (pageText.includes(query)) {
+                matches.push(page);
+            }
+        } catch (error) {
+            console.error("Could not search:", page.url, error);
+        }
+    }
+
+    results.innerHTML = "";
 
     if (matches.length === 0) {
         results.innerHTML = "<p>No results found.</p>";
@@ -321,38 +313,96 @@ function searchWebsite() {
     }
 
     matches.forEach(page => {
-
         const link = document.createElement("a");
 
-        link.href = page.url;
+        link.href = page.url + "?search=" + encodeURIComponent(query);
         link.textContent = page.title;
 
-        results.appendChild(link);
+        link.style.display = "block";
+        link.style.padding = "10px";
+        link.style.color = "#234d32";
 
+        results.appendChild(link);
     });
 }
 
-// Search when pressing Enter
-document.getElementById("searchInput")
-    .addEventListener("keydown", function(event) {
-
-        if (event.key === "Enter") {
-            searchWebsite();
-        }
-
-    });
-
-// Close results when clicking outside
-document.addEventListener("click", function(event) {
-
-    const searchContainer = document.querySelector(".search-container");
-
-    if (searchContainer && !searchContainer.contains(event.target)) {
-        document.getElementById("searchResults").style.display = "none";
+// Press Enter to search
+document.getElementById("searchInput").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        searchWebsite();
     }
-
 });
 
+// Hide results when clicking outside
+document.addEventListener("click", function(event) {
+    const container = document.querySelector(".search-container");
+
+    if (container && !container.contains(event.target)) {
+        document.getElementById("searchResults").style.display = "none";
+    }
+});
+
+// Highlight searched word when arriving on a page
+window.addEventListener("DOMContentLoaded", function() {
+    const params = new URLSearchParams(window.location.search);
+    const searchTerm = params.get("search");
+
+    if (!searchTerm) return;
+
+    const walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT
+    );
+
+    const textNodes = [];
+
+    while (walker.nextNode()) {
+        const node = walker.currentNode;
+
+        if (
+            node.parentElement &&
+            !["SCRIPT", "STYLE", "NOSCRIPT"].includes(node.parentElement.tagName)
+        ) {
+            textNodes.push(node);
+        }
+    }
+
+    for (const node of textNodes) {
+        const text = node.textContent;
+        const index = text.toLowerCase().indexOf(searchTerm.toLowerCase());
+
+        if (index !== -1) {
+            const highlighted = document.createElement("mark");
+
+            highlighted.textContent = text.substring(index, index + searchTerm.length);
+            highlighted.style.backgroundColor = "#ffff66";
+            highlighted.style.color = "#000";
+
+            const before = document.createTextNode(text.substring(0, index));
+            const after = document.createTextNode(text.substring(index + searchTerm.length));
+
+            node.parentNode.replaceChild(
+                document.createDocumentFragment(),
+                node
+            );
+
+            const fragment = document.createDocumentFragment();
+            fragment.appendChild(before);
+            fragment.appendChild(highlighted);
+            fragment.appendChild(after);
+
+            // Insert the highlighted content
+            node.parentNode.insertBefore(fragment, node.nextSibling);
+
+            highlighted.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+            break;
+        }
+    }
+});
 </script>
 
 </body>
