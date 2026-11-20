@@ -103,6 +103,93 @@
             margin-top: 60px;
         }
 
+        
+/* Navigation Bar */
+.navbar {
+    background-color: #376b47;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+/* Search Bar */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-container input {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 15px;
+    width: 220px;
+    outline: none;
+}
+
+.search-container button {
+    padding: 10px 14px;
+    border: none;
+    background-color: #234d32;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    font-size: 16px;
+}
+
+.search-container button:hover {
+    background-color: #183a25;
+}
+
+/* Search Results */
+#searchResults {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    width: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    z-index: 100;
+}
+
+#searchResults a {
+    display: block;
+    padding: 12px;
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+}
+
+#searchResults a:hover {
+    background-color: #e4eee2;
+}
+
+#searchResults p {
+    padding: 12px;
+    margin: 0;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .search-container input {
+        width: 180px;
+    }
+}
+
+
     </style>
 </head>
 
@@ -113,20 +200,32 @@
         <p>Weather, Wildlife, Plants, and Other News</p>
     </header>
 
-    <nav>
-        <div class="dropdown">
-            <button class="dropbtn">Menu ▼</button>
+    
+<nav class="navbar">
 
-            <div class="dropdown-content">
-    <a href="index.html">Home</a>
-    <a href="weather.html">Weather Outlook</a>
-    <a href="pictures.html">Fauna & Flora Pictures</a>
-    <a href="news.html">Technology and Political News</a>
-    <a href="faq.html">About Me & FaQ</a>
-                  </div>
-            </div>
+    <div class="dropdown">
+        <button class="dropbtn">Menu ▼</button>
+
+        <div class="dropdown-content">
+            <a href="index.html">Home</a>
+            <a href="weather.html">Weather Outlook</a>
+            <a href="pictures.html">Fauna & Flora Pictures</a>
+            <a href="news.html">Other News</a>
         </div>
-    </nav>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchInput"
+               placeholder="Search website..."
+               autocomplete="off">
+
+        <button onclick="searchWebsite()">🔍</button>
+
+        <div id="searchResults"></div>
+    </div>
+
+</nav>
+
 
     <main>
         <h2>Welcome to My Blog!</h2>
@@ -156,6 +255,88 @@
     <footer>
         <p>&copy; 2026 Nature & Weather Blog</p>
     </footer>
+
+const websitePages = [
+    {
+        title: "Home",
+        url: "index.html",
+        keywords: "home welcome nature weather wildlife plants blog"
+    },
+    {
+        title: "Weather Outlook",
+        url: "weather.html",
+        keywords: "weather forecast temperature storms snow rain sunshine climate meteorology"
+    },
+    {
+        title: "Fauna & Flora Pictures",
+        url: "pictures.html",
+        keywords: "birds animals wildlife trees flowers plants photographs pictures nature"
+    },
+    {
+        title: "Other News",
+        url: "news.html",
+        keywords: "news stories updates environment science nature"
+    }
+];
+
+function searchWebsite() {
+
+    const input = document.getElementById("searchInput");
+    const results = document.getElementById("searchResults");
+
+    const query = input.value.toLowerCase().trim();
+
+    results.innerHTML = "";
+    results.style.display = "block";
+
+    if (query === "") {
+        results.innerHTML = "<p>Please enter something to search.</p>";
+        return;
+    }
+
+    const matches = websitePages.filter(page =>
+        (page.title + " " + page.keywords)
+            .toLowerCase()
+            .includes(query)
+    );
+
+    if (matches.length === 0) {
+        results.innerHTML = "<p>No results found.</p>";
+        return;
+    }
+
+    matches.forEach(page => {
+
+        const link = document.createElement("a");
+
+        link.href = page.url;
+        link.textContent = page.title;
+
+        results.appendChild(link);
+
+    });
+}
+
+// Search when pressing Enter
+document.getElementById("searchInput")
+    .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+            searchWebsite();
+        }
+
+    });
+
+// Close results when clicking outside
+document.addEventListener("click", function(event) {
+
+    const searchContainer = document.querySelector(".search-container");
+
+    if (!searchContainer.contains(event.target)) {
+        document.getElementById("searchResults").style.display = "none";
+    }
+
+});
 
 </body>
 </html>
