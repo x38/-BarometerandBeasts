@@ -273,7 +273,7 @@ const websitePages = [
 async function searchWebsite() {
     const input = document.getElementById("searchInput");
     const results = document.getElementById("searchResults");
-    const query = input.value.trim().toLowerCase();
+    const query = input.value.trim();
 
     results.innerHTML = "";
     results.style.display = "block";
@@ -283,36 +283,31 @@ async function searchWebsite() {
         return;
     }
 
-    results.innerHTML = "<p>Searching...</p>";
-
-    const matches = [];
+    let foundResults = [];
 
     for (const page of websitePages) {
         try {
             const response = await fetch(page.url);
             const html = await response.text();
 
-            const parser = new DOMParser();
-            const documentPage = parser.parseFromString(html, "text/html");
+            const doc = new DOMParser().parseFromString(html, "text/html");
 
-            const pageText = documentPage.body.innerText.toLowerCase();
+            const text = doc.body.innerText.toLowerCase();
 
-            if (pageText.includes(query)) {
-                matches.push(page);
+            if (text.includes(query.toLowerCase())) {
+                foundResults.push(page);
             }
         } catch (error) {
-            console.error("Could not search:", page.url, error);
+            console.error("Error searching:", page.url, error);
         }
     }
 
-    results.innerHTML = "";
-
-    if (matches.length === 0) {
+    if (foundResults.length === 0) {
         results.innerHTML = "<p>No results found.</p>";
         return;
     }
 
-    matches.forEach(page => {
+    foundResults.forEach(page => {
         const link = document.createElement("a");
 
         link.href = page.url + "?search=" + encodeURIComponent(query);
@@ -320,20 +315,17 @@ async function searchWebsite() {
 
         link.style.display = "block";
         link.style.padding = "10px";
-        link.style.color = "#234d32";
 
         results.appendChild(link);
     });
 }
 
-// Press Enter to search
 document.getElementById("searchInput").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         searchWebsite();
     }
 });
 
-// Hide results when clicking outside
 document.addEventListener("click", function(event) {
     const container = document.querySelector(".search-container");
 
@@ -341,9 +333,9 @@ document.addEventListener("click", function(event) {
         document.getElementById("searchResults").style.display = "none";
     }
 });
-
-// Highlight searched word when arriving on a page
-window.addEventListener("DOMContentLoaded", function() {
+</script>
+    <script>
+function highlightSearchTerm() {
     const params = new URLSearchParams(window.location.search);
     const searchTerm = params.get("search");
 
@@ -360,49 +352,57 @@ window.addEventListener("DOMContentLoaded", function() {
         const node = walker.currentNode;
 
         if (
-            node.parentElement &&
-            !["SCRIPT", "STYLE", "NOSCRIPT"].includes(node.parentElement.tagName)
+            node.parentElement.closest("script, style, input, button, nav, footer")
         ) {
+            continue;
+        }
+
+        if (node.textContent.toLowerCase().includes(searchTerm.toLowerCase())) {
             textNodes.push(node);
         }
     }
 
-    for (const node of textNodes) {
+    textNodes.forEach(node => {
         const text = node.textContent;
-        const index = text.toLowerCase().indexOf(searchTerm.toLowerCase());
+        const regex = new RegExp(
+            searchTerm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+            "gi"
+        );
 
-        if (index !== -1) {
-            const highlighted = document.createElement("mark");
+        const fragment = document.createDocumentFragment();
+        let lastIndex = 0;
+        let match;
 
-            highlighted.textContent = text.substring(index, index + searchTerm.length);
-            highlighted.style.backgroundColor = "#ffff66";
-            highlighted.style.color = "#000";
-
-            const before = document.createTextNode(text.substring(0, index));
-            const after = document.createTextNode(text.substring(index + searchTerm.length));
-
-            node.parentNode.replaceChild(
-                document.createDocumentFragment(),
-                node
+        while ((match = regex.exec(text)) !== null) {
+            fragment.appendChild(
+                document.createTextNode(text.substring(lastIndex, match.index))
             );
 
-            const fragment = document.createDocumentFragment();
-            fragment.appendChild(before);
-            fragment.appendChild(highlighted);
-            fragment.appendChild(after);
+            const mark = document.createElement("mark");
+            mark.textContent = match[0];
+            mark.style.backgroundColor = "yellow";
+            mark.style.color = "black";
+            mark.style.padding = "2px";
 
-            // Insert the highlighted content
-            node.parentNode.insertBefore(fragment, node.nextSibling);
-
-            highlighted.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-            break;
+            fragment.appendChild(mark);
+            lastIndex = regex.lastIndex;
         }
+
+        fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+        node.parentNode.replaceChild(fragment, node);
+    });
+
+    const firstMatch = document.querySelector("mark");
+
+    if (firstMatch) {
+        firstMatch.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
     }
-});
+}
+
+window.addEventListener("load", highlightSearchTerm);
 </script>
 
 </body>
