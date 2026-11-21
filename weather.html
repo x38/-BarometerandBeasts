@@ -6,13 +6,13 @@
     <title>Weather Outlook - Nature & Weather Blog</title>
 
     <style>
-        * {
+           * {
             box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
+            font-family: Arial, sans-serif;
             background-color: #f4f7f0;
             color: #333;
         }
@@ -20,8 +20,8 @@
         header {
             background-color: #234d32;
             color: white;
+            padding: 20px;
             text-align: center;
-            padding: 25px 15px;
         }
 
         header h1 {
@@ -29,67 +29,69 @@
         }
 
         header p {
-            margin-top: 10px;
+            margin: 8px 0 0;
         }
 
-        nav {
-            background-color: #376b47;
-            padding: 12px;
-            text-align: center;
-        }
+       nav {
+    background-color: #376b47;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 12px;
-            font-weight: bold;
-        }
+nav a,
+.dropdown-button {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+}
 
-        nav a:hover {
-            text-decoration: underline;
-        }
+nav a:hover,
+.dropdown-button:hover {
+    background-color: #234d32;
+    border-radius: 5px;
+}
 
-        .dropdown {
-            display: inline-block;
-            position: relative;
-        }
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
 
-        .dropdown-button {
-            background-color: #376b47;
-            color: white;
-            border: none;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            padding: 0;
-        }
+.dropdown-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: white;
-            min-width: 200px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            z-index: 1000;
-            text-align: left;
-            left: 0;
-        }
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 180px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 5px;
+    overflow: hidden;
+}
 
-        .dropdown-content a {
-            display: block;
-            color: #234d32;
-            padding: 12px;
-            margin: 0;
-            text-decoration: none;
-        }
+.dropdown-content a {
+    color: #234d32;
+    display: block;
+    padding: 12px;
+}
 
-        .dropdown-content a:hover {
-            background-color: #e8f0e5;
-        }
+.dropdown-content a:hover {
+    background-color: #e8f0e5;
+}
 
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
         .container {
             max-width: 1100px;
@@ -120,53 +122,31 @@
             border-radius: 6px;
         }
 
-        .search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 5px;
-            margin-top: 15px;
-        }
+     .search-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 
-        #siteSearch {
-            width: 200px;
-            height: 35px;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+#siteSearch {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
-        #searchButton {
-            width: 42px;
-            height: 35px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            background-color: #376b47;
-            color: white;
-        }
+#searchButton {
+    padding: 8px 12px;
+    background-color: #234d32;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-        #searchButton:hover {
-            background-color: #234d32;
-        }
-
-        #searchResults {
-            max-width: 500px;
-            margin: 10px auto;
-            text-align: left;
-        }
-
-        #searchResults a {
-            display: block;
-            color: #234d32;
-            padding: 8px;
-            text-decoration: none;
-            border-bottom: 1px solid #ddd;
-        }
-
-        #searchResults a:hover {
-            background-color: #e8f0e5;
-        }
+#searchButton:hover {
+    background-color: #183a25;
+}
 
         mark {
             background-color: yellow;
