@@ -149,6 +149,35 @@ nav a:hover,
 #searchButton:hover {
     background-color: #183a25;
 }
+        .about-profile {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.about-profile img {
+    width: 180px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.about-profile p {
+    line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+    .about-profile {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-profile img {
+        width: 200px;
+        height: 240px;
+    }
+}
 
     mark {
         background-color: yellow;
@@ -229,6 +258,16 @@ nav a:hover,
 
 <main class="container">
 
+    <div class="about-profile">
+    <img src="images/sergio.jpg" alt="Photo of me">
+    <div>
+        <p>
+            Hi, I'm the person behind this Nature & Weather Blog!
+            I'm interested in weather, wildlife, plants,
+            photography, and learning more about the natural world.
+        </p>
+    </div>
+</div>
     <section>
         <h2>About Me</h2>
 
