@@ -1,24 +1,449 @@
-<main>
-    <h2>Weather Outlook</h2>
 
-    <p>
-        Welcome to my weather outlook page, where I share
-        forecasts, weather observations, and interesting
-        meteorological events.
-    </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <section>
-        <h2>Current Weather</h2>
-        <p>Updates about current weather conditions.</p>
-    </section>
+    <title>Weather Outlook | Nature & Weather Blog</title>
 
-    <section>
-        <h2>Forecasts</h2>
-        <p>Upcoming weather forecasts and predictions.</p>
-    </section>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    <section>
-        <h2>Interesting Weather Events</h2>
-        <p>Storms, unusual weather, and other meteorological events.</p>
-    </section>
-</main>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f0;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: #234d32;
+            color: white;
+            text-align: center;
+            padding: 35px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 38px;
+        }
+
+        header p {
+            margin-bottom: 0;
+            font-size: 16px;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #376b47;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #376b47;
+            color: white;
+            padding: 16px 25px;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropbtn:hover {
+            background-color: #234d32;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 14px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #e4eee2;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .search-container input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+            height: 35px;
+            font-size: 14px;
+        }
+
+        .search-container button {
+            padding: 8px 12px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #234d32;
+            color: white;
+            height: 35px;
+        }
+
+        #searchResults {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            width: 300px;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        #searchResults a {
+            display: block;
+            padding: 10px;
+            color: #234d32;
+            text-decoration: none;
+        }
+
+        #searchResults a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Main Content Frame */
+        main {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 25px;
+            background-color: white;
+            border: 3px solid #376b47;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            min-height: 400px;
+        }
+
+        main > h2 {
+            text-align: center;
+            color: #234d32;
+            border-bottom: 2px solid #d5e5d3;
+            padding-bottom: 12px;
+        }
+
+        main > p {
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* Weather Sections */
+        .weather-section {
+            background-color: #f9fbf7;
+            border: 1px solid #d5e5d3;
+            border-left: 5px solid #376b47;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .weather-section h3 {
+            color: #234d32;
+            margin-top: 0;
+        }
+
+        .weather-section p {
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #234d32;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            margin-top: 60px;
+        }
+
+        /* Mobile */
+        @media (max-width: 700px) {
+            header h1 {
+                font-size: 30px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                padding: 5px 10px;
+            }
+
+            .search-container {
+                margin: 5px auto;
+            }
+
+            .search-container input {
+                width: 160px;
+            }
+
+            main {
+                margin: 15px;
+                padding: 15px;
+            }
+
+            .weather-section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>Nature & Weather Blog</h1>
+        <p>Weather, Wildlife, Plants, and Other News</p>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="dropdown">
+            <button class="dropbtn">Menu ▼</button>
+
+            <div class="dropdown-content">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Me & FAQ</a>
+                <a href="weather.html">Weather Outlook</a>
+                <a href="pictures.html">Fauna & Flora Pictures</a>
+                <a href="news.html">Other News</a>
+            </div>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <div class="search-container">
+            <input type="text" id="searchInput"
+                   placeholder="Search website..."
+                   autocomplete="off">
+
+            <button type="button" onclick="searchWebsite()">🔍</button>
+
+            <div id="searchResults"></div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <h2>Weather Outlook</h2>
+
+        <p>
+            Welcome to my weather outlook page, where I share
+            forecasts, weather observations, and interesting
+            meteorological events.
+        </p>
+
+        <!-- CURRENT WEATHER -->
+        <section class="weather-section">
+            <h3>Current Weather</h3>
+
+            <p>
+                Updates about current weather conditions.
+            </p>
+        </section>
+
+        <!-- FORECASTS -->
+        <section class="weather-section">
+            <h3>Forecasts</h3>
+
+            <p>
+                Upcoming weather forecasts and predictions.
+            </p>
+        </section>
+
+        <!-- WEATHER EVENTS -->
+        <section class="weather-section">
+            <h3>Interesting Weather Events</h3>
+
+            <p>
+                Storms, unusual weather, and other meteorological events.
+            </p>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Nature & Weather Blog</p>
+    </footer>
+
+    <!-- SEARCH FUNCTION -->
+    <script>
+    const websitePages = [
+        { title: "Home", url: "index.html" },
+        { title: "About Me & FAQ", url: "about.html" },
+        { title: "Weather Outlook", url: "weather.html" },
+        { title: "Fauna & Flora Pictures", url: "pictures.html" },
+        { title: "Other News", url: "news.html" }
+    ];
+
+    async function searchWebsite() {
+        const input = document.getElementById("searchInput");
+        const results = document.getElementById("searchResults");
+        const query = input.value.trim();
+
+        results.innerHTML = "";
+        results.style.display = "block";
+
+        if (!query) {
+            results.innerHTML = "<p>Please enter something to search.</p>";
+            return;
+        }
+
+        let foundResults = [];
+
+        for (const page of websitePages) {
+            try {
+                const response = await fetch(page.url);
+                const html = await response.text();
+
+                const doc = new DOMParser().parseFromString(html, "text/html");
+                const text = doc.body.innerText.toLowerCase();
+
+                if (text.includes(query.toLowerCase())) {
+                    foundResults.push(page);
+                }
+            } catch (error) {
+                console.error("Error searching:", page.url, error);
+            }
+        }
+
+        if (foundResults.length === 0) {
+            results.innerHTML = "<p>No results found.</p>";
+            return;
+        }
+
+        foundResults.forEach(page => {
+            const link = document.createElement("a");
+
+            link.href = page.url + "?search=" + encodeURIComponent(query);
+            link.textContent = page.title;
+
+            results.appendChild(link);
+        });
+    }
+
+    document.getElementById("searchInput").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            searchWebsite();
+        }
+    });
+
+    document.addEventListener("click", function(event) {
+        const container = document.querySelector(".search-container");
+
+        if (container && !container.contains(event.target)) {
+            document.getElementById("searchResults").style.display = "none";
+        }
+    });
+    </script>
+
+    <!-- HIGHLIGHT SEARCH WORD -->
+    <script>
+    function highlightSearchTerm() {
+        const params = new URLSearchParams(window.location.search);
+        const searchTerm = params.get("search");
+
+        if (!searchTerm) return;
+
+        const walker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT
+        );
+
+        const textNodes = [];
+
+        while (walker.nextNode()) {
+            const node = walker.currentNode;
+
+            if (node.parentElement.closest("script, style, input, button, nav, footer")) {
+                continue;
+            }
+
+            if (node.textContent.toLowerCase().includes(searchTerm.toLowerCase())) {
+                textNodes.push(node);
+            }
+        }
+
+        textNodes.forEach(node => {
+            const text = node.textContent;
+
+            const regex = new RegExp(
+                searchTerm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+                "gi"
+            );
+
+            const fragment = document.createDocumentFragment();
+            let lastIndex = 0;
+            let match;
+
+            while ((match = regex.exec(text)) !== null) {
+                fragment.appendChild(
+                    document.createTextNode(text.substring(lastIndex, match.index))
+                );
+
+                const mark = document.createElement("mark");
+                mark.textContent = match[0];
+                mark.style.backgroundColor = "yellow";
+                mark.style.color = "black";
+                mark.style.padding = "2px";
+
+                fragment.appendChild(mark);
+                lastIndex = regex.lastIndex;
+            }
+
+            fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+
+            node.parentNode.replaceChild(fragment, node);
+        });
+
+        const firstMatch = document.querySelector("mark");
+
+        if (firstMatch) {
+            firstMatch.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+    }
+
+    window.addEventListener("load", highlightSearchTerm);
+    </script>
+
+</body>
+</html>
