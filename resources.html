@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nature Resources | Nature & Weather Blog</title>
+    <title>Nature & Weather Blog - Resources</title>
 
     <style>
         * {
@@ -22,26 +21,40 @@
         header {
             background-color: #234d32;
             color: white;
+            padding: 20px;
             text-align: center;
-            padding: 35px;
         }
 
         header h1 {
             margin: 0;
-            font-size: 38px;
         }
 
         header p {
-            margin-bottom: 0;
-            font-size: 16px;
+            margin: 8px 0 0;
         }
 
         nav {
             background-color: #376b47;
+            padding: 12px;
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav a,
+        .dropdown-button {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 12px;
+        }
+
+        nav a:hover,
+        .dropdown-button:hover {
+            background-color: #234d32;
+            border-radius: 5px;
         }
 
         .dropdown {
@@ -49,186 +62,142 @@
             display: inline-block;
         }
 
-        .dropbtn {
-            background-color: #376b47;
-            color: white;
-            padding: 16px 25px;
-            font-size: 17px;
+        .dropdown-button {
+            background: none;
             border: none;
+            font-size: 16px;
             cursor: pointer;
-        }
-
-        .dropbtn:hover {
-            background-color: #234d32;
         }
 
         .dropdown-content {
             display: none;
             position: absolute;
             background-color: white;
-            min-width: 220px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 10;
+            min-width: 180px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            border-radius: 5px;
+            overflow: hidden;
         }
 
         .dropdown-content a {
-            color: #333;
-            padding: 14px 16px;
-            text-decoration: none;
+            color: #234d32;
             display: block;
+            padding: 12px;
         }
 
         .dropdown-content a:hover {
-            background-color: #e4eee2;
+            background-color: #e8f0e5;
         }
 
         .dropdown:hover .dropdown-content {
             display: block;
         }
 
-        /* SEARCH BAR */
         .search-container {
-            position: relative;
             display: flex;
             align-items: center;
-            margin-left: auto;
+            gap: 5px;
         }
 
-        .search-container input {
+        #siteSearch {
             padding: 8px;
+            width: 200px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            width: 200px;
-            height: 35px;
-            font-size: 14px;
         }
 
-        .search-container button {
+        #searchButton {
             padding: 8px 12px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
             background-color: #234d32;
             color: white;
-            height: 35px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #searchButton:hover {
+            background-color: #183a25;
         }
 
         #searchResults {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            width: 300px;
-            max-height: 300px;
-            overflow-y: auto;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            border-radius: 5px;
-            z-index: 1000;
+            max-width: 1000px;
+            margin: 15px auto;
+            padding: 0 20px;
         }
 
         #searchResults a {
-            display: block;
-            padding: 10px;
             color: #234d32;
-            text-decoration: none;
-        }
-
-        #searchResults a:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* MAIN FRAME */
-        main {
-            max-width: 1000px;
-            margin: 35px auto;
-            padding: 25px;
-            background-color: white;
-            border: 3px solid #376b47;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            min-height: 400px;
-        }
-
-        main > h2 {
-            text-align: center;
-            color: #234d32;
-            border-bottom: 2px solid #d5e5d3;
-            padding-bottom: 12px;
-        }
-
-        main > p {
-            text-align: center;
-            line-height: 1.6;
-        }
-
-        /* RESOURCE SECTIONS */
-        .resource-section {
-            background-color: #f9fbf7;
-            border: 1px solid #d5e5d3;
-            border-left: 5px solid #376b47;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 25px 0;
-        }
-
-        .resource-section h3 {
-            color: #234d32;
-            margin-top: 0;
-        }
-
-        .resource-item {
-            padding: 12px 0;
-            border-bottom: 1px solid #e1e9df;
-        }
-
-        .resource-item:last-child {
-            border-bottom: none;
-        }
-
-        .resource-item a {
-            color: #27613b;
             font-weight: bold;
         }
 
-        .resource-item p {
+        main {
+            max-width: 1000px;
+            margin: 25px auto;
+            padding: 25px;
+            background-color: white;
+            border: 1px solid #c8d8c5;
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #234d32;
+        }
+
+        h3 {
+            color: #376b47;
+        }
+
+        .resource-section {
+            margin-bottom: 35px;
+        }
+
+        .resource-card {
+            background-color: #f4f7f0;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border-left: 5px solid #376b47;
+        }
+
+        .resource-card p {
             line-height: 1.6;
-            margin-bottom: 5px;
+        }
+
+        .resource-card a {
+            color: #376b47;
+            font-weight: bold;
+        }
+
+        .resource-card a:hover {
+            color: #234d32;
         }
 
         footer {
             background-color: #234d32;
             color: white;
             text-align: center;
-            padding: 18px;
-            margin-top: 60px;
+            padding: 15px;
+            margin-top: 30px;
         }
 
-        @media (max-width: 700px) {
-            header h1 {
-                font-size: 30px;
-            }
+        mark {
+            background-color: yellow;
+            padding: 2px;
+        }
 
+        @media (max-width: 600px) {
             nav {
-                flex-wrap: wrap;
-                padding: 5px 10px;
+                flex-direction: column;
             }
 
-            .search-container {
-                margin: 5px auto;
-            }
-
-            .search-container input {
+            #siteSearch {
                 width: 160px;
             }
 
             main {
                 margin: 15px;
-                padding: 15px;
-            }
-
-            .resource-section {
-                padding: 15px;
+                padding: 18px;
             }
         }
     </style>
@@ -242,148 +211,290 @@
 </header>
 
 <nav>
+    <a href="index.html">Home</a>
+
     <div class="dropdown">
-        <button class="dropbtn">Menu ▼</button>
+        <button class="dropdown-button">Pages ▼</button>
 
         <div class="dropdown-content">
             <a href="index.html">Home</a>
             <a href="about.html">About Me & FAQ</a>
             <a href="weather.html">Weather Outlook</a>
-            <a href="pictures.html">Fauna & Flora Pictures</a>
-            <a href="news.html">Other News</a>
+            <a href="pictures.html">Pictures & Galleries</a>
+            <a href="news.html">Nature & Weather News</a>
             <a href="resources.html">Resources</a>
             <a href="contact.html">Contact</a>
         </div>
     </div>
 
     <div class="search-container">
-        <input type="text" id="searchInput"
-               placeholder="Search website..."
-               autocomplete="off">
-
-        <button type="button" onclick="searchWebsite()">🔍</button>
-
-        <div id="searchResults"></div>
+        <input type="text" id="siteSearch" placeholder="Search website...">
+        <button id="searchButton">Search</button>
     </div>
 </nav>
+
+<div id="searchResults"></div>
 
 <main>
 
     <h2>Nature & Weather Resources</h2>
 
     <p>
-        A collection of useful websites, tools, databases, and educational
-        resources related to weather, wildlife, plants, and the natural world.
+        This page contains useful websites, tools, databases, and
+        resources for exploring weather, meteorology, wildlife,
+        plants, climate, and the natural world.
     </p>
 
-    <!-- WEATHER -->
+    <!-- WEATHER RESOURCES -->
     <section class="resource-section">
-        <h3>Weather & Meteorology</h3>
 
-        <div class="resource-item">
-            <a href="https://www.weather.gov/" target="_blank" rel="noopener">
-                National Weather Service
+        <h2>Weather & Forecasting</h2>
+
+        <div class="resource-card">
+            <h3>National Weather Service</h3>
+            <p>
+                Official weather forecasts, alerts, radar, severe
+                weather information, and local weather observations
+                throughout the United States.
+            </p>
+            <a href="https://www.weather.gov/" target="_blank">
+                Visit National Weather Service
             </a>
-            <p>Official forecasts, warnings, radar, and weather information for the United States.</p>
         </div>
 
-        <div class="resource-item">
-            <a href="https://www.nhc.noaa.gov/" target="_blank" rel="noopener">
-                National Hurricane Center
+        <div class="resource-card">
+            <h3>Weather Prediction Center</h3>
+            <p>
+                Weather forecasts, precipitation outlooks, winter
+                weather forecasts, and information about significant
+                weather systems across the United States.
+            </p>
+            <a href="https://www.wpc.ncep.noaa.gov/" target="_blank">
+                Visit Weather Prediction Center
             </a>
-            <p>Tropical storm and hurricane forecasts, tracking maps, and advisories.</p>
         </div>
 
-        <div class="resource-item">
-            <a href="https://www.noaa.gov/" target="_blank" rel="noopener">
-                NOAA
+        <div class="resource-card">
+            <h3>Storm Prediction Center</h3>
+            <p>
+                Information about severe thunderstorms, tornado
+                outlooks, severe weather probabilities, and
+                thunderstorm forecasting.
+            </p>
+            <a href="https://www.spc.noaa.gov/" target="_blank">
+                Visit Storm Prediction Center
             </a>
-            <p>Weather, climate, oceans, and environmental science information.</p>
         </div>
 
-        <div class="resource-item">
-            <a href="https://www.weather.gov/radar" target="_blank" rel="noopener">
-                Weather Radar
+        <div class="resource-card">
+            <h3>National Hurricane Center</h3>
+            <p>
+                Tropical cyclone forecasts, hurricane tracking,
+                tropical outlooks, storm advisories, and information
+                about tropical weather systems.
+            </p>
+            <a href="https://www.nhc.noaa.gov/" target="_blank">
+                Visit National Hurricane Center
             </a>
-            <p>Radar information and precipitation monitoring from the National Weather Service.</p>
         </div>
+
+        <div class="resource-card">
+            <h3>Weather Radar</h3>
+            <p>
+                View precipitation, thunderstorms, snow, and other
+                weather systems using radar imagery.
+            </p>
+            <a href="https://radar.weather.gov/" target="_blank">
+                View NOAA Radar
+            </a>
+        </div>
+
     </section>
 
-    <!-- BIRDS AND WILDLIFE -->
+    <!-- CLIMATE RESOURCES -->
     <section class="resource-section">
-        <h3>Birds & Wildlife</h3>
 
-        <div class="resource-item">
-            <a href="https://ebird.org/" target="_blank" rel="noopener">
-                eBird
+        <h2>Climate & Meteorology</h2>
+
+        <div class="resource-card">
+            <h3>NOAA Climate Data</h3>
+            <p>
+                Explore historical weather observations, temperature
+                records, precipitation data, climate summaries,
+                and climate information.
+            </p>
+            <a href="https://www.ncei.noaa.gov/" target="_blank">
+                Visit NOAA National Centers for Environmental Information
             </a>
-            <p>Explore bird sightings, checklists, distribution maps, and birding locations.</p>
         </div>
 
-        <div class="resource-item">
-            <a href="https://www.allaboutbirds.org/" target="_blank" rel="noopener">
-                All About Birds
+        <div class="resource-card">
+            <h3>Climate Prediction Center</h3>
+            <p>
+                Seasonal forecasts, temperature outlooks,
+                precipitation outlooks, drought information,
+                and climate predictions.
+            </p>
+            <a href="https://www.cpc.ncep.noaa.gov/" target="_blank">
+                Visit Climate Prediction Center
             </a>
-            <p>Bird identification, species information, sounds, and educational guides.</p>
         </div>
 
-        <div class="resource-item">
-            <a href="https://www.inaturalist.org/" target="_blank" rel="noopener">
-                iNaturalist
+        <div class="resource-card">
+            <h3>Weather Underground</h3>
+            <p>
+                Local weather observations, weather forecasts,
+                historical weather data, and personal weather
+                station information.
+            </p>
+            <a href="https://www.wunderground.com/" target="_blank">
+                Visit Weather Underground
             </a>
-            <p>Identify organisms and explore wildlife and nature observations from around the world.</p>
         </div>
+
     </section>
 
-    <!-- PLANTS -->
+    <!-- BIRD RESOURCES -->
     <section class="resource-section">
-        <h3>Plants & Trees</h3>
 
-        <div class="resource-item">
-            <a href="https://plants.usda.gov/" target="_blank" rel="noopener">
-                USDA Plants Database
+        <h2>Birds & Wildlife</h2>
+
+        <div class="resource-card">
+            <h3>eBird</h3>
+            <p>
+                Explore bird sightings, species observations,
+                bird distribution maps, migration patterns,
+                and contribute your own bird observations.
+            </p>
+            <a href="https://ebird.org/" target="_blank">
+                Visit eBird
             </a>
-            <p>Information about plant species, distribution, taxonomy, and characteristics.</p>
         </div>
 
-        <div class="resource-item">
-            <a href="https://www.plantnet.org/" target="_blank" rel="noopener">
-                PlantNet
+        <div class="resource-card">
+            <h3>Merlin Bird ID</h3>
+            <p>
+                Identify birds using photographs, sounds,
+                recordings, and location information.
+            </p>
+            <a href="https://merlin.allaboutbirds.org/" target="_blank">
+                Visit Merlin Bird ID
             </a>
-            <p>Plant identification using photographs.</p>
         </div>
 
-        <div class="resource-item">
-            <a href="https://www.arborday.org/" target="_blank" rel="noopener">
-                Arbor Day Foundation
+        <div class="resource-card">
+            <h3>All About Birds</h3>
+            <p>
+                Learn about bird identification, behavior,
+                habitats, birdwatching, and different bird species.
+            </p>
+            <a href="https://www.allaboutbirds.org/" target="_blank">
+                Visit All About Birds
             </a>
-            <p>Tree information, planting resources, and educational material about trees.</p>
         </div>
+
+        <div class="resource-card">
+            <h3>iNaturalist</h3>
+            <p>
+                Identify and document wildlife, plants, insects,
+                fungi, and other organisms while contributing
+                observations to biodiversity research.
+            </p>
+            <a href="https://www.inaturalist.org/" target="_blank">
+                Visit iNaturalist
+            </a>
+        </div>
+
     </section>
 
-    <!-- EDUCATIONAL -->
+    <!-- PLANT RESOURCES -->
     <section class="resource-section">
-        <h3>Nature & Environmental Education</h3>
 
-        <div class="resource-item">
-            <a href="https://www.nationalgeographic.com/" target="_blank" rel="noopener">
-                National Geographic
+        <h2>Plants & Trees</h2>
+
+        <div class="resource-card">
+            <h3>PlantNet</h3>
+            <p>
+                Identify plants using photographs of leaves,
+                flowers, bark, fruits, and other plant features.
+            </p>
+            <a href="https://plantnet.org/" target="_blank">
+                Visit PlantNet
             </a>
-            <p>Articles, photography, exploration, wildlife, geography, and environmental topics.</p>
         </div>
 
-        <div class="resource-item">
-            <a href="https://www.nature.org/" target="_blank" rel="noopener">
-                The Nature Conservancy
+        <div class="resource-card">
+            <h3>USDA Plants Database</h3>
+            <p>
+                Search for plants and explore their scientific names,
+                distribution, characteristics, habitats, and other
+                botanical information.
+            </p>
+            <a href="https://plants.usda.gov/" target="_blank">
+                Visit USDA Plants Database
             </a>
-            <p>Conservation, habitats, biodiversity, and environmental protection.</p>
         </div>
+
+        <div class="resource-card">
+            <h3>Arbor Day Foundation</h3>
+            <p>
+                Learn about trees, tree planting, tree care,
+                forests, and environmental conservation.
+            </p>
+            <a href="https://www.arborday.org/" target="_blank">
+                Visit Arbor Day Foundation
+            </a>
+        </div>
+
+    </section>
+
+    <!-- GENERAL NATURE RESOURCES -->
+    <section class="resource-section">
+
+        <h2>General Nature & Science</h2>
+
+        <div class="resource-card">
+            <h3>National Geographic</h3>
+            <p>
+                Explore articles, photographs, documentaries,
+                discoveries, wildlife, geography, science,
+                and the natural world.
+            </p>
+            <a href="https://www.nationalgeographic.com/" target="_blank">
+                Visit National Geographic
+            </a>
+        </div>
+
+        <div class="resource-card">
+            <h3>National Park Service</h3>
+            <p>
+                Discover national parks, natural landscapes,
+                wildlife, ecosystems, hiking, conservation,
+                and environmental information.
+            </p>
+            <a href="https://www.nps.gov/" target="_blank">
+                Visit National Park Service
+            </a>
+        </div>
+
+        <div class="resource-card">
+            <h3>Massachusetts Audubon</h3>
+            <p>
+                Explore Massachusetts wildlife, birdwatching,
+                nature conservation, sanctuaries, and environmental
+                education.
+            </p>
+            <a href="https://www.massaudubon.org/" target="_blank">
+                Visit Mass Audubon
+            </a>
+        </div>
+
     </section>
 
 </main>
 
 <footer>
-    <p>&copy; 2026 Nature & Weather Blog</p>
+    <p>© 2026 Nature & Weather Blog</p>
 </footer>
 
 <script>
@@ -391,143 +502,163 @@ const websitePages = [
     { title: "Home", url: "index.html" },
     { title: "About Me & FAQ", url: "about.html" },
     { title: "Weather Outlook", url: "weather.html" },
-    { title: "Fauna & Flora Pictures", url: "pictures.html" },
-    { title: "Other News", url: "news.html" },
+    { title: "Pictures & Galleries", url: "pictures.html" },
+    { title: "Nature & Weather News", url: "news.html" },
     { title: "Resources", url: "resources.html" },
     { title: "Contact", url: "contact.html" }
 ];
 
-async function searchWebsite() {
-    const input = document.getElementById("searchInput");
-    const results = document.getElementById("searchResults");
-    const query = input.value.trim();
+const searchInput = document.getElementById("siteSearch");
+const searchButton = document.getElementById("searchButton");
+const searchResults = document.getElementById("searchResults");
 
-    results.innerHTML = "";
-    results.style.display = "block";
+function performSearch() {
+    const query = searchInput.value.trim();
 
     if (!query) {
-        results.innerHTML = "<p>Please enter something to search.</p>";
+        searchResults.innerHTML = "";
         return;
     }
 
-    let foundResults = [];
+    searchResults.innerHTML = "<p>Searching website...</p>";
+
+    searchAllPages(query);
+}
+
+async function searchAllPages(query) {
+    const results = [];
 
     for (const page of websitePages) {
         try {
             const response = await fetch(page.url);
+
+            if (!response.ok) continue;
+
             const html = await response.text();
 
-            const doc = new DOMParser().parseFromString(html, "text/html");
-            const text = doc.body.innerText.toLowerCase();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
 
-            if (text.includes(query.toLowerCase())) {
-                foundResults.push(page);
+            const text = doc.querySelector("main")?.innerText || doc.body.innerText;
+
+            if (text.toLowerCase().includes(query.toLowerCase())) {
+                results.push({
+                    title: page.title,
+                    url: page.url
+                });
             }
+
         } catch (error) {
             console.error("Error searching:", page.url, error);
         }
     }
 
-    if (foundResults.length === 0) {
-        results.innerHTML = "<p>No results found.</p>";
+    displaySearchResults(results, query);
+}
+
+function displaySearchResults(results, query) {
+    if (results.length === 0) {
+        searchResults.innerHTML = `
+            <p>No results found for "<strong>${escapeHTML(query)}</strong>".</p>
+        `;
         return;
     }
 
-    foundResults.forEach(page => {
-        const link = document.createElement("a");
+    searchResults.innerHTML = `
+        <h3>Search Results for "${escapeHTML(query)}"</h3>
+        <ul>
+            ${results.map(result => `
+                <li>
+                    <a href="${result.url}?search=${encodeURIComponent(query)}">
+                        ${result.title}
+                    </a>
+                </li>
+            `).join("")}
+        </ul>
+    `;
+}
 
-        link.href = page.url + "?search=" + encodeURIComponent(query);
-        link.textContent = page.title;
+function escapeHTML(text) {
+    return text.replace(/[&<>"']/g, function(character) {
+        const replacements = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+        };
 
-        results.appendChild(link);
+        return replacements[character];
     });
 }
 
-document.getElementById("searchInput").addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        searchWebsite();
-    }
-});
-
-document.addEventListener("click", function(event) {
-    const container = document.querySelector(".search-container");
-
-    if (container && !container.contains(event.target)) {
-        document.getElementById("searchResults").style.display = "none";
-    }
-});
-</script>
-
-<script>
 function highlightSearchTerm() {
     const params = new URLSearchParams(window.location.search);
     const searchTerm = params.get("search");
 
     if (!searchTerm) return;
 
+    const main = document.querySelector("main");
+
+    if (!main) return;
+
     const walker = document.createTreeWalker(
-        document.body,
+        main,
         NodeFilter.SHOW_TEXT
     );
 
     const textNodes = [];
 
     while (walker.nextNode()) {
-        const node = walker.currentNode;
-
-        if (node.parentElement.closest("script, style, input, button, nav, footer")) {
-            continue;
-        }
-
-        if (node.textContent.toLowerCase().includes(searchTerm.toLowerCase())) {
-            textNodes.push(node);
-        }
+        textNodes.push(walker.currentNode);
     }
+
+    let firstMatch = null;
 
     textNodes.forEach(node => {
         const text = node.textContent;
+        const index = text.toLowerCase().indexOf(searchTerm.toLowerCase());
 
-        const regex = new RegExp(
-            searchTerm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-            "gi"
-        );
+        if (index === -1) return;
 
-        const fragment = document.createDocumentFragment();
-        let lastIndex = 0;
-        let match;
+        const before = text.substring(0, index);
+        const match = text.substring(index, index + searchTerm.length);
+        const after = text.substring(index + searchTerm.length);
 
-        while ((match = regex.exec(text)) !== null) {
-            fragment.appendChild(
-                document.createTextNode(text.substring(lastIndex, match.index))
-            );
+        const span = document.createElement("span");
 
-            const mark = document.createElement("mark");
-            mark.textContent = match[0];
-            mark.style.backgroundColor = "yellow";
-            mark.style.color = "black";
-            mark.style.padding = "2px";
+        span.innerHTML =
+            escapeHTML(before) +
+            "<mark>" + escapeHTML(match) + "</mark>" +
+            escapeHTML(after);
 
-            fragment.appendChild(mark);
-            lastIndex = regex.lastIndex;
+        node.parentNode.replaceChild(span, node);
+
+        if (!firstMatch) {
+            firstMatch = span.querySelector("mark");
         }
-
-        fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
-        node.parentNode.replaceChild(fragment, node);
     });
 
-    const firstMatch = document.querySelector("mark");
-
     if (firstMatch) {
-        firstMatch.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
+        setTimeout(() => {
+            firstMatch.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }, 300);
     }
 }
 
-window.addEventListener("load", highlightSearchTerm);
+searchButton.addEventListener("click", performSearch);
+
+searchInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        performSearch();
+    }
+});
+
+window.addEventListener("DOMContentLoaded", highlightSearchTerm);
 </script>
 
 </body>
 </html>
-
