@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,410 +6,523 @@
     <title>Nature & Weather Blog</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
+            font-family: Arial, Helvetica, sans-serif;
             margin: 0;
-            font-family: Arial, sans-serif;
             background-color: #f4f7f0;
             color: #333;
         }
 
-        /* Website Header */
         header {
             background-color: #234d32;
             color: white;
             text-align: center;
-            padding: 35px;
+            padding: 25px 15px;
         }
 
         header h1 {
             margin: 0;
-            font-size: 38px;
         }
 
         header p {
-            margin-bottom: 0;
-            font-size: 16px;
+            margin-top: 10px;
         }
 
-        /* Navigation Bar */
         nav {
             background-color: #376b47;
+            padding: 12px;
             text-align: center;
         }
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: bold;
         }
 
-        .dropbtn {
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-button {
             background-color: #376b47;
             color: white;
-            padding: 16px 25px;
-            font-size: 17px;
             border: none;
+            font-weight: bold;
+            font-size: 16px;
             cursor: pointer;
+            padding: 0;
         }
 
-        .dropbtn:hover {
-            background-color: #234d32;
-        }
-
-        /* Dropdown Content */
         .dropdown-content {
             display: none;
             position: absolute;
             background-color: white;
-            min-width: 220px;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
+            min-width: 200px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
             text-align: left;
+            left: 0;
         }
 
         .dropdown-content a {
-            color: #333;
-            padding: 14px 16px;
-            text-decoration: none;
             display: block;
+            color: #234d32;
+            padding: 12px;
+            margin: 0;
+            text-decoration: none;
         }
 
         .dropdown-content a:hover {
-            background-color: #e4eee2;
+            background-color: #e8f0e5;
         }
 
         .dropdown:hover .dropdown-content {
             display: block;
         }
 
-        /* Main Content */
-        main {
-            max-width: 1000px;
-            margin: 40px auto;
+        .container {
+            max-width: 1100px;
+            margin: 25px auto;
             padding: 20px;
-            text-align: center;
+            background-color: white;
+            border: 1px solid #c8d8c5;
+            border-radius: 8px;
         }
 
-        main h2 {
+        section {
+            margin-bottom: 30px;
+        }
+
+        h2 {
             color: #234d32;
+            border-bottom: 2px solid #c8d8c5;
+            padding-bottom: 8px;
         }
 
-        /* Footer */
-        footer {
-            background-color: #234d32;
-            color: white;
-            text-align: center;
-            padding: 18px;
-            margin-top: 60px;
+        h3 {
+            color: #376b47;
         }
 
-        
-/* Navigation Bar */
-.navbar {
-    background-color: #376b47;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-}
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
 
-       /* Search Bar */
         .search-container {
-            position: relative;
             display: flex;
+            justify-content: center;
             align-items: center;
-            margin-left: auto;
+            gap: 5px;
+            margin-top: 15px;
         }
 
-        .search-container input {
+        #siteSearch {
+            width: 200px;
+            height: 35px;
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            width: 200px;
-            height: 35px;
-            font-size: 14px;
         }
 
-        .search-container button {
-            padding: 8px 12px;
+        #searchButton {
+            width: 42px;
+            height: 35px;
             cursor: pointer;
             border: none;
             border-radius: 5px;
-            background-color: #234d32;
+            background-color: #376b47;
             color: white;
-            height: 35px;
+        }
+
+        #searchButton:hover {
+            background-color: #234d32;
         }
 
         #searchResults {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: white;
-            width: 300px;
-            max-height: 300px;
-            overflow-y: auto;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            border-radius: 5px;
-            z-index: 1000;
+            max-width: 500px;
+            margin: 10px auto;
+            text-align: left;
         }
 
         #searchResults a {
             display: block;
-            padding: 10px;
             color: #234d32;
+            padding: 8px;
             text-decoration: none;
+            border-bottom: 1px solid #ddd;
         }
 
         #searchResults a:hover {
-            background-color: #f0f0f0;
+            background-color: #e8f0e5;
         }
 
+        mark {
+            background-color: yellow;
+            color: black;
+            padding: 2px;
+        }
 
-/* Mobile */
-@media (max-width: 600px) {
-    .navbar {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-        padding: 8px;
-    }
-}
+        footer {
+            background-color: #234d32;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
 
+        @media (max-width: 600px) {
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
 
+            nav a {
+                margin: 0;
+            }
+
+            .dropdown-content {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            #siteSearch {
+                width: 160px;
+            }
+
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
+<header>
+    <h1>Nature & Weather Blog</h1>
+    <p>Weather, Wildlife, Plants, and Other News</p>
 
+    <div class="search-container">
+        <input type="text" id="siteSearch" placeholder="Search the website...">
+        <button id="searchButton" title="Search">🔍</button>
+    </div>
 
-</div>
-    
-    <header>
-        <h1>Nature & Weather Blog</h1>
-        <p>Weather, Wildlife, Plants, and Other News</p>
-    </header>
+    <div id="searchResults"></div>
+</header>
 
-    
-<nav class="navbar">
+<nav>
+    <a href="index.html">Home</a>
 
     <div class="dropdown">
-        <button class="dropbtn">Menu ▼</button>
+        <button class="dropdown-button">Pages ▼</button>
 
         <div class="dropdown-content">
             <a href="index.html">Home</a>
+            <a href="about.html">About Me & FAQ</a>
             <a href="weather.html">Weather Outlook</a>
             <a href="pictures.html">Fauna & Flora Pictures</a>
             <a href="news.html">Other News</a>
-            <a href="faq.html">About Me & FaQ</a>
-            <a href="resources.html">Other Resources</a>
-            <a href="contact.html">Get in contact with the author</a>
+            <a href="resources.html">Resources</a>
+            <a href="contact.html">Contact</a>
         </div>
     </div>
-
-<div class="search-container">
-
-    <input type="text" id="searchInput"
-           placeholder="Search website..."
-           autocomplete="off">
-
-    <button type="button" onclick="searchWebsite()">🔍</button>
-
-        <div id="searchResults"></div>
-    </div>
-
 </nav>
 
+<main class="container">
 
-    <main>
-        <h2>Welcome to the Blog!</h2>
+    <section>
+        <h2>Welcome to My Nature & Weather Blog</h2>
 
         <p>
-            Welcome to the blog! Where you can explore weather
-            forecasts and updates, cool and unique shots of wildlife, beautiful plants and trees,
-            and any kind of interesting news from 'round the world.
+            Welcome to my website! This blog is dedicated to nature,
+            wildlife, plants, weather, and other interesting topics.
+            Here you can explore weather observations, photographs of
+            animals and plants, interesting news, and useful resources.
         </p>
 
-        <section id="weather">
-            <h2>Weather Outlook</h2>
-            <p>Updates, forecasts, and analysis of weather conditions.</p>
-        </section>
+        <p>
+            Whether you're interested in meteorology, birdwatching,
+            trees, gardening, or the natural world, I hope you find
+            something interesting here.
+        </p>
+    </section>
 
-        <section id="pictures">
-            <h2>Fauna & Flora Pictures</h2>
-            <p>Collection of different interesting animals and plants.</p>
-        </section>
+    <section>
+        <h2>Explore the Website</h2>
 
-        <section id="news">
-            <h2>Other News</h2>
-            <p>Other interesting stories and updates.</p>
-        </section>
+        <h3>Weather Outlook</h3>
 
-        <section id="faq">
-            <h2>About Me & FaQ</h2>
-            <p>Who Am I and what do I have to offer?.</p>
-        </section>
+        <p>
+            Visit my weather page for forecasts, weather observations,
+            interesting meteorological events, and other weather-related
+            information.
+        </p>
 
-        <section id="faq">
-            <h2>About Me & FaQ</h2>
-            <p>Who Am I and what do I have to offer?.</p>
-        </section>
+        <p>
+            <a href="weather.html">Visit the Weather Outlook page</a>
+        </p>
 
-        <section id="faq">
-            <h2>About Me & FaQ</h2>
-            <p>Who Am I and what do I have to offer?.</p>
-        </section>
-    </main>
+        <h3>Fauna & Flora Pictures</h3>
 
-   
+        <p>
+            Explore photographs of wildlife, birds, trees, flowers,
+            and other interesting plants and animals.
+        </p>
+
+        <p>
+            <a href="pictures.html">View the Fauna & Flora gallery</a>
+        </p>
+
+        <h3>Other News</h3>
+
+        <p>
+            Read about interesting discoveries, environmental news,
+            science, nature, and other topics.
+        </p>
+
+        <p>
+            <a href="news.html">Explore Other News</a>
+        </p>
+
+        <h3>Resources</h3>
+
+        <p>
+            Find useful websites and tools for weather, wildlife,
+            plants, nature, and other subjects.
+        </p>
+
+        <p>
+            <a href="resources.html">Visit the Resources page</a>
+        </p>
+    </section>
+
+    <section>
+        <h2>About Me</h2>
+
+        <p>
+            I'm interested in weather, nature, wildlife, plants,
+            photography, and learning more about the environment.
+            This website is a place to share my interests,
+            observations, photographs, and discoveries.
+        </p>
+
+        <p>
+            <a href="about.html">Learn more about me</a>
+        </p>
+    </section>
+
+</main>
+
 <footer>
-    <p>&copy; 2026 Nature & Weather Blog</p>
+    <p>© 2026 Nature & Weather Blog</p>
 </footer>
 
 <script>
 const websitePages = [
-    { title: "Home", url: "index.html" },
-    { title: "Weather Outlook", url: "weather.html" },
-    { title: "Fauna & Flora Pictures", url: "pictures.html" },
-    { title: "Other News", url: "news.html" }
-    { title: "About Me & FaQ", url: "faq.html" }
+    "index.html",
+    "about.html",
+    "weather.html",
+    "pictures.html",
+    "news.html",
+    "resources.html",
+    "contact.html"
 ];
 
-async function searchWebsite() {
-    const input = document.getElementById("searchInput");
-    const results = document.getElementById("searchResults");
-    const query = input.value.trim();
+const searchInput = document.getElementById("siteSearch");
+const searchButton = document.getElementById("searchButton");
+const searchResults = document.getElementById("searchResults");
 
-    results.innerHTML = "";
-    results.style.display = "block";
+async function searchWebsite() {
+    const query = searchInput.value.trim();
 
     if (!query) {
-        results.innerHTML = "<p>Please enter a search term.</p>";
+        searchResults.innerHTML = "<p>Please enter a search term.</p>";
         return;
     }
 
-    let foundResults = [];
+    searchResults.innerHTML = "<p>Searching all pages...</p>";
+
+    const results = [];
 
     for (const page of websitePages) {
         try {
-            const response = await fetch(page.url);
+            const response = await fetch(page);
+
+            if (!response.ok) {
+                continue;
+            }
+
             const html = await response.text();
 
-            const doc = new DOMParser().parseFromString(html, "text/html");
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
 
             const text = doc.body.innerText.toLowerCase();
 
             if (text.includes(query.toLowerCase())) {
-                foundResults.push(page);
+                const title =
+                    doc.querySelector("title")?.innerText || page;
+
+                results.push({
+                    page: page,
+                    title: title
+                });
             }
+
         } catch (error) {
-            console.error("Error searching:", page.url, error);
+            console.error("Error searching page:", page, error);
         }
     }
 
-    if (foundResults.length === 0) {
-        results.innerHTML = "<p>No results found.</p>";
+    if (results.length === 0) {
+        searchResults.innerHTML =
+            "<p>No results found for \"" + query + "\".</p>";
         return;
     }
 
-    foundResults.forEach(page => {
+    searchResults.innerHTML =
+        "<p><strong>Search results:</strong></p>";
+
+    results.forEach(result => {
         const link = document.createElement("a");
 
-        link.href = page.url + "?search=" + encodeURIComponent(query);
-        link.textContent = page.title;
+        link.href = result.page + "?search=" +
+            encodeURIComponent(query);
 
-        link.style.display = "block";
-        link.style.padding = "10px";
+        link.textContent = result.title;
 
-        results.appendChild(link);
+        searchResults.appendChild(link);
     });
 }
 
-document.getElementById("searchInput").addEventListener("keydown", function(event) {
+searchButton.addEventListener("click", searchWebsite);
+
+searchInput.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
         searchWebsite();
     }
 });
 
-document.addEventListener("click", function(event) {
-    const container = document.querySelector(".search-container");
-
-    if (container && !container.contains(event.target)) {
-        document.getElementById("searchResults").style.display = "none";
-    }
-});
-</script>
-    <script>
 function highlightSearchTerm() {
     const params = new URLSearchParams(window.location.search);
     const searchTerm = params.get("search");
 
-    if (!searchTerm) return;
-
-    const walker = document.createTreeWalker(
-        document.body,
-        NodeFilter.SHOW_TEXT
-    );
-
-    const textNodes = [];
-
-    while (walker.nextNode()) {
-        const node = walker.currentNode;
-
-        if (
-            node.parentElement.closest("script, style, input, button, nav, footer")
-        ) {
-            continue;
-        }
-
-        if (node.textContent.toLowerCase().includes(searchTerm.toLowerCase())) {
-            textNodes.push(node);
-        }
+    if (!searchTerm) {
+        return;
     }
 
-    textNodes.forEach(node => {
+    const mainContent = document.querySelector("main");
+
+    if (!mainContent) {
+        return;
+    }
+
+    const walker = document.createTreeWalker(
+        mainContent,
+        NodeFilter.SHOW_TEXT,
+        {
+            acceptNode(node) {
+                if (!node.textContent.trim()) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+
+                if (
+                    node.parentElement.closest(
+                        "script, style, input, button, textarea, select, mark"
+                    )
+                ) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        }
+    );
+
+    const nodes = [];
+
+    while (walker.nextNode()) {
+        nodes.push(walker.currentNode);
+    }
+
+    let firstMatch = null;
+
+    nodes.forEach(node => {
         const text = node.textContent;
-        const regex = new RegExp(
-            searchTerm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-            "gi"
-        );
+        const lowerText = text.toLowerCase();
+        const lowerSearch = searchTerm.toLowerCase();
+
+        if (!lowerText.includes(lowerSearch)) {
+            return;
+        }
 
         const fragment = document.createDocumentFragment();
-        let lastIndex = 0;
-        let match;
 
-        while ((match = regex.exec(text)) !== null) {
+        let currentIndex = 0;
+        let matchIndex;
+
+        while (
+            (matchIndex = lowerText.indexOf(
+                lowerSearch,
+                currentIndex
+            )) !== -1
+        ) {
             fragment.appendChild(
-                document.createTextNode(text.substring(lastIndex, match.index))
+                document.createTextNode(
+                    text.substring(currentIndex, matchIndex)
+                )
             );
 
             const mark = document.createElement("mark");
-            mark.textContent = match[0];
-            mark.style.backgroundColor = "yellow";
-            mark.style.color = "black";
-            mark.style.padding = "2px";
+
+            mark.textContent = text.substring(
+                matchIndex,
+                matchIndex + searchTerm.length
+            );
 
             fragment.appendChild(mark);
-            lastIndex = regex.lastIndex;
+
+            if (!firstMatch) {
+                firstMatch = mark;
+            }
+
+            currentIndex = matchIndex + searchTerm.length;
         }
 
-        fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+        fragment.appendChild(
+            document.createTextNode(text.substring(currentIndex))
+        );
+
         node.parentNode.replaceChild(fragment, node);
     });
 
-    const firstMatch = document.querySelector("mark");
-
     if (firstMatch) {
-        firstMatch.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
+        setTimeout(() => {
+            firstMatch.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }, 300);
     }
 }
 
-window.addEventListener("load", highlightSearchTerm);
+window.addEventListener("DOMContentLoaded", highlightSearchTerm);
 </script>
 
 </body>
 </html>
-
