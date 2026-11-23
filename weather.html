@@ -22,57 +22,157 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     background-attachment: fixed;
     color: #333;
 }
-        .station-dashboard {
-    margin: 25px 0;
-    padding: 20px;
-    background-color: white;
-    border: 1px solid #c8d8c5;
-    border-radius: 10px;
+        
+
+/* ===== PERSONAL WEATHER STATION DASHBOARD ===== */
+
+.station-dashboard {
+    margin: 30px 0;
+    padding: 25px;
+    background: linear-gradient(145deg, #ffffff, #f1f6ee);
+    border: 1px solid #d3e1cf;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(35, 77, 50, 0.08);
+}
+
+.station-dashboard h2 {
+    margin-top: 0;
+    font-size: 26px;
+    color: #234d32;
+    border-bottom: none;
+}
+
+#station-status {
+    display: inline-block;
+    background: #e4f1e4;
+    color: #2e6b3e;
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px 0 20px;
 }
 
 .weather-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
 }
 
 .weather-card {
-    background-color: #e8f0e5;
-    padding: 18px;
-    border-radius: 10px;
-    text-align: center;
+    background: #eaf1e7;
+    border: 1px solid #dbe6d6;
+    padding: 22px;
+    border-radius: 16px;
+    text-align: left;
+    min-height: 125px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.weather-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(35, 77, 50, 0.10);
 }
 
 .weather-card h3 {
-    margin-top: 0;
-    font-size: 16px;
+    margin: 0 0 12px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #66806a;
 }
 
 .weather-card p {
-    font-size: 24px;
+    margin: 0;
+    font-size: 30px;
     font-weight: bold;
     color: #234d32;
 }
 
 .temperature-card {
-    background-color: #d5e8d0;
+    grid-column: span 2;
+    background: linear-gradient(135deg, #234d32, #467b52);
+    border: none;
+    color: white;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-#station-status {
-    color: #376b47;
-    font-weight: bold;
+.temperature-card h3 {
+    color: #d2e5d0;
+    font-size: 14px;
+}
+
+.temperature-card p {
+    color: white;
+    font-size: 56px;
+    letter-spacing: -2px;
 }
 
 #station-updated {
+    color: #718071;
     font-size: 13px;
-    color: #666;
+    margin-top: 20px;
 }
 
+.station-dashboard button {
+    background: #234d32;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.station-dashboard button:hover {
+    background: #376b47;
+}
+
+/* Mobile layout */
+
 @media (max-width: 700px) {
+    .station-dashboard {
+        padding: 18px;
+    }
+
     .weather-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .temperature-card {
+        grid-column: span 2;
+    }
+
+    .weather-card {
+        padding: 16px;
+        min-height: 110px;
+    }
+
+    .weather-card p {
+        font-size: 25px;
+    }
+
+    .temperature-card p {
+        font-size: 48px;
     }
 }
+
+@media (max-width: 400px) {
+    .weather-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .temperature-card {
+        grid-column: span 1;
+    }
+}
+
         header {
             background-color: #234d32;
             color: white;
