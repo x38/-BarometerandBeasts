@@ -681,9 +681,7 @@ window.addEventListener("DOMContentLoaded", highlightSearchTerm);
 
     try {
 
-        const response = await fetch(
-            "https://troianisweatherapi.sergioatroiani.workers.dev/"
-        );
+     const response = await fetch("https://troianisweatherapi.sergioatroiani.workers.dev/");
 
         if (!response.ok) {
             throw new Error("Unable to retrieve weather data");
