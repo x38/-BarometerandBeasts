@@ -22,6 +22,57 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     background-attachment: fixed;
     color: #333;
 }
+        .station-dashboard {
+    margin: 25px 0;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #c8d8c5;
+    border-radius: 10px;
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.weather-card {
+    background-color: #e8f0e5;
+    padding: 18px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.weather-card h3 {
+    margin-top: 0;
+    font-size: 16px;
+}
+
+.weather-card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #234d32;
+}
+
+.temperature-card {
+    background-color: #d5e8d0;
+}
+
+#station-status {
+    color: #376b47;
+    font-weight: bold;
+}
+
+#station-updated {
+    font-size: 13px;
+    color: #666;
+}
+
+@media (max-width: 700px) {
+    .weather-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
         header {
             background-color: #234d32;
             color: white;
@@ -265,6 +316,61 @@ nav a:hover,
         </p>
     </section>
 
+    <section class="station-dashboard">
+
+    <h2>My Personal Weather Station</h2>
+
+    <p id="station-status">Connecting to weather station...</p>
+
+    <div class="weather-grid">
+
+        <div class="weather-card temperature-card">
+            <h3>Temperature</h3>
+            <p id="station-temp">--°F</p>
+        </div>
+
+        <div class="weather-card">
+            <h3>Humidity</h3>
+            <p id="station-humidity">--%</p>
+        </div>
+
+        <div class="weather-card">
+            <h3>Wind Speed</h3>
+            <p id="station-wind">-- mph</p>
+        </div>
+
+        <div class="weather-card">
+            <h3>Wind Gust</h3>
+            <p id="station-gust">-- mph</p>
+        </div>
+
+        <div class="weather-card">
+            <h3>Wind Direction</h3>
+            <p id="station-direction">--</p>
+        </div>
+
+        <div class="weather-card">
+            <h3>Dew Point</h3>
+            <p id="station-dewpoint">--°F</p>
+        </div>
+
+        <div class="weather-card">
+            <h3>Rain Today</h3>
+            <p id="station-rain">-- in</p>
+        </div>
+
+        <div class="weather-card">
+            <h3>Pressure</h3>
+            <p id="station-pressure">-- inHg</p>
+        </div>
+
+    </div>
+
+    <p id="station-updated"></p>
+
+    <button onclick="loadStationData()">Refresh Data</button>
+
+</section>
     <section>
         <h2>Weather Forecasts</h2>
 
@@ -567,5 +673,69 @@ window.addEventListener("DOMContentLoaded", highlightSearchTerm);
     </div>
 
 </footer>
+    async function loadStationData() {
+
+    const status = document.getElementById("station-status");
+
+    status.textContent = "Updating weather data...";
+
+    try {
+
+        const response = await fetch(
+            "YOUR_CLOUDFLARE_WORKER_URL"
+        );
+
+        if (!response.ok) {
+            throw new Error("Unable to retrieve weather data");
+        }
+
+        const data = await response.json();
+
+        const observation = data.observations[0];
+        const weather = observation.imperial;
+
+        document.getElementById("station-temp").textContent =
+            weather.temp + "°F";
+
+        document.getElementById("station-humidity").textContent =
+            observation.humidity + "%";
+
+        document.getElementById("station-wind").textContent =
+            weather.windSpeed + " mph";
+
+        document.getElementById("station-gust").textContent =
+            weather.windGust + " mph";
+
+        document.getElementById("station-direction").textContent =
+            observation.winddir + "°";
+
+        document.getElementById("station-dewpoint").textContent =
+            weather.dewpt + "°F";
+
+        document.getElementById("station-rain").textContent =
+            weather.precipTotal + " in";
+
+        document.getElementById("station-pressure").textContent =
+            weather.pressure + " inHg";
+
+        status.textContent = "Station connected";
+
+        document.getElementById("station-updated").textContent =
+            "Last updated: " + observation.obsTimeLocal;
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "Unable to connect to weather station.";
+
+    }
+}
+
+loadStationData();
+
+// Automatically refresh every 5 minutes
+setInterval(loadStationData, 5 * 60 * 1000);
 </body>
 </html>
